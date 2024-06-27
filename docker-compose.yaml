@@ -53,8 +53,11 @@ services:
     container_name: amf
     image: free5gc/amf:v3.4.1
     command: ./amf -c ./config/amfcfg.yaml
+    ports:
+      - 38412:38412/sctp
     expose:
       - "8000"
+      - "38412"
     volumes:
       - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
       - ./cert:/free5gc/cert
@@ -225,6 +228,7 @@ services:
 
 networks:
   privnet:
+    name: 5gc-net
     ipam:
       driver: default
       config:
